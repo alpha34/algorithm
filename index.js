@@ -1,30 +1,44 @@
 let fs = require("fs");
-let input = fs.readFileSync("dev/stdin").toString();
+let input = fs.readFileSync("dev/stdin").toString().split(" ");
 
-let n = Number(input);
-let cnt = 0;
-let queens = []; // 현재 체스판에 놓인 퀸의 위치 정보들
+let n = Number(input[0]);
+let m = Number(input[1]);
 
-function possible(x, y) {
-  for (let [a, b] of queens) {
-    if (a == x || b == y) return false;
-    if (Math.abs(a - x) == Math.abs(b - y)) return false;
+let selected = [];
+let arr = [];
+
+for (let i = 1; i <= n; i++) {
+  arr.push(i);
+}
+// console.log("arr > ", arr);
+let visited = new Array(n).fill(false);
+
+let answer = "";
+function dfs(arr, depth) {
+  if (depth === m) {
+    let result = [];
+    for (i of selected) {
+      result.push(arr[i]);
+    }
+
+    // console.log(result);
+
+    for (x of result) {
+      answer += x + " ";
+    }
+    answer += "\n";
+    return;
   }
-  return true;
+
+  for (let i = 0; i < arr.length; i++) {
+    if (visited[i]) continue;
+    selected.push(i);
+    visited[i] = true;
+    dfs(arr, depth + 1);
+    selected.pop();
+    visited[i] = false;
+  }
 }
 
-function dfs(row) {
-  if (row === n) {
-    cnt += 1; // 퀸(queen)을 N개 배치할 수 있는 경우 카운트
-  }
-
-  for (let i = 0; i < n; i++) {
-    if (!possible(row, i)) continue;
-    queens.push([row, i]);
-    dfs(row + 1);
-    queens.pop();
-  }
-}
-
-dfs(0);
-console.log(cnt);
+dfs(arr, 0);
+console.log(answer);
