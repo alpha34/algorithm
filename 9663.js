@@ -8,7 +8,7 @@ let queens = []; // 현재 체스판에 놓인 퀸의 위치 정보들
 function possible(x, y) {
   for (let [a, b] of queens) {
     if (a == x || b == y) return false;
-    if (Math.abs(a - x) == Math.abs(b - y)) return false;
+    if (Math.abs(a - x) === Math.abs(b - y)) return false;
   }
   return true;
 }
