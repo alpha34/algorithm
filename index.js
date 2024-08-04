@@ -10,29 +10,29 @@ let arr = [];
 for (let i = 1; i <= n; i++) {
   arr.push(i);
 }
-// console.log("arr > ", arr);
+
+// console.log(arr);
+
 let visited = new Array(n).fill(false);
+
+// console.log(visited);
 
 let answer = "";
 function dfs(arr, depth) {
-  if (depth === m) {
+  if (m == depth) {
     let result = [];
     for (i of selected) {
-      result.push(arr[i]);
+      result.push(i);
     }
-
-    // console.log(result);
-
     for (x of result) {
       answer += x + " ";
     }
     answer += "\n";
     return;
   }
-
   for (let i = 0; i < arr.length; i++) {
     if (visited[i]) continue;
-    selected.push(i);
+    selected.push(arr[i]);
     visited[i] = true;
     dfs(arr, depth + 1);
     selected.pop();
