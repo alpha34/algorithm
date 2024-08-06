@@ -1,10 +1,7 @@
 let fs = require("fs");
 let input = fs.readFileSync("dev/stdin").toString().split("\n").map(Number);
 
-// console.log(input[2]);
-
 let cnt = input[0];
-
 let temp = ["", "+", "-"];
 let n;
 let arr = [];
@@ -20,7 +17,6 @@ for (let i = 1; i <= cnt; i++) {
   console.log("");
 }
 
-// console.log(arr);
 function dfs(temp2, depth) {
   if (depth == n - 1) {
     let str = "";
