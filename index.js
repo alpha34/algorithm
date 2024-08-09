@@ -8,23 +8,35 @@ let N = input[0];
 let M = input[1];
 
 let arr = [];
+let temp = [];
 for (let i = 1; i <= N; i++) {
   arr.push(i);
+  temp.push(false);
 }
 
+// console.log(temp);
 let answer = [];
-function dfs(propsArr, depth) {
+
+function dfs(propsArr, depth, start) {
+  let answer2 = "";
+
   if (depth === M) {
-    console.log(answer);
+    for (let k = 0; k < answer.length; k++) {
+      answer2 += answer[k] + " ";
+    }
+    console.log(answer2);
 
     return;
   }
 
-  for (let i = 0; i < N; i++) {
+  for (let i = start; i < N; i++) {
+    if (temp[i]) continue;
+    temp[i] = true;
     answer.push(arr[i]);
-    dfs(propsArr, depth + 1);
+    dfs(propsArr, depth + 1, i + 1); 
+    temp[i] = false;
     answer.pop();
   }
 }
 
-dfs(arr, 0);
+dfs(arr, 0, 0);
