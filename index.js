@@ -1,37 +1,35 @@
 let fs = require("fs");
-let [N, M] = fs.readFileSync("dev/stdin").toString().split(" ").map(Number);
-
+let input = fs.readFileSync("dev/stdin").toString().split("\n");
+let N = Number(input[0]);
 let arr = [];
-for (let i = 1; i <= N; i++) {
-  arr.push(i);
+for (let a = 1; a < input.length; a++) {
+  arr.push(input[a].split(" ").map(Number));
 }
+// 방문 여부
+const visited = new Array(N).fill(false).map(() => new Array(N).fill(false));
 
-// console.log(arr);
+console.log(N);
+console.log(arr[1][3]);
+// console.log(visited);
 
-let selected = [];
-
-let answer = "";
-function dfs(arr, depth, start) {
-  if (depth === M) {
-    let result = [];
-    for (j of selected) {
-      result.push(arr[j]);
-    }
-    for (k of result) {
-      answer += k + " ";
-    }
-
-    // console.log(answer);
-    answer += "\n";
+let min = 0;
+let sum = 0;
+function dfs(arr, depth, start, end) {
+  if (depth === N) {
+    console.log(sum);
     return;
   }
+  console.log(visited);
+  if (!visited[start][end]) {
+    sum += arr[start][end];
+  }
 
-  for (let i = start; i < arr.length; i++) {
-    selected.push(i);
-    dfs(arr, depth + 1, i);
-    selected.pop();
+  // i가 스타트 지점
+  for (let i = 0; i < N; i++) {
+    visited[start][end] = false;
+    dfs(arr, depth + 1, end, i);
+    visited[start][end] = true;
   }
 }
 
-dfs(arr, 0, 0);
-console.log(answer);
+dfs(arr, 0, 0, 0);
