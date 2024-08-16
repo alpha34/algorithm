@@ -20,7 +20,7 @@ function dfs(arr, depth, start, end) {
     console.log(sum);
     return;
   }
-  console.log(visited);
+  // console.log(visited);
   if (!visited[start][end]) {
     sum += arr[start][end];
   }
